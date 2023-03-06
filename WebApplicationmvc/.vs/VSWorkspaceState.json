@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebApplicationmvc",
+    "\\WebApplicationmvc\\Controllers",
+    "\\WebApplicationmvc\\Data",
+    "\\WebApplicationmvc\\Models",
+    "\\WebApplicationmvc\\Views",
+    "\\WebApplicationmvc\\Views\\Category",
+    "\\WebApplicationmvc\\Views\\Shared"
+  ],
+  "SelectedNode": "\\WebApplicationmvc\\Controllers\\CategoryController.cs",
+  "PreviewInSolutionExplorer": false
+}
