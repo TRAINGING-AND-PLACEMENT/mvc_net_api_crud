@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Demoweb",
+    "\\Demoweb\\Controllers",
+    "\\Demoweb\\Views",
+    "\\Demoweb\\Views\\Demoes",
+    "\\Demoweb\\Views\\Shared"
+  ],
+  "SelectedNode": "\\Demoweb\\Views\\Shared\\_Layout.cshtml",
+  "PreviewInSolutionExplorer": false
+}
