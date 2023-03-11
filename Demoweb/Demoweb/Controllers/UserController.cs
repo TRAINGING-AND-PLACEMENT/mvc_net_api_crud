@@ -8,15 +8,17 @@ using System.Text.Json.Serialization;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web;
+using Demoweb.api;
 
 namespace Demoweb.Controllers
 {
     public class UserController : Controller
     {
-        Uri baseAddress = new Uri("http://192.168.1.101/api/all_api.php?what=");
         HttpClient client;
         public UserController()
         {
+            Webapi wb = new Webapi();
+            System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
         }
