@@ -1,14 +1,11 @@
-﻿using Demoweb.Models;
+﻿using CsvHelper;
+using Demoweb.api;
+using Demoweb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net.Http;
+using System.Globalization;
 using System.Text;
-using System.Text.Json.Serialization;
-using System.Data.SqlClient;
-using System.IO;
-using System.Web;
-using Demoweb.api;
 
 namespace Demoweb.Controllers
 {
@@ -23,13 +20,13 @@ namespace Demoweb.Controllers
             client.BaseAddress = baseAddress;
         }
         public IActionResult Index()
-        {   
+        {
             List<UserView> model = new List<UserView>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress+"get_user").Result;
-            if(response.IsSuccessStatusCode)
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_user").Result;
+            if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                Debug.Write(data);
+                /*Debug.Write(data);*/
                 model = JsonConvert.DeserializeObject<List<UserView>>(data);
             }
             return View(model);
@@ -41,13 +38,13 @@ namespace Demoweb.Controllers
         [HttpPost]
         public IActionResult Create(UserView model)
         {
-            String data  = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(data,Encoding.UTF8,"application/json");
+            String data = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
             HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user", content).Result;
             if (response.IsSuccessStatusCode)
             {
-                /*String data2 = response.Content.ReadAsStringAsync().Result;
-                Debug.Write(data2);*/
+                String data2 = response.Content.ReadAsStringAsync().Result;
+                Debug.Write(data2);
                 return RedirectToAction("Index");
             }
             return View();
@@ -55,8 +52,8 @@ namespace Demoweb.Controllers
         public IActionResult Edit(int id)
         {
             UserView model = new UserView();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "edit_user&id="+id).Result;
-            if(response.IsSuccessStatusCode)
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "edit_user&id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
                 /*Debug.Write(data);*/
@@ -69,10 +66,10 @@ namespace Demoweb.Controllers
 
         public IActionResult Edit(UserView model)
         {
-            String data = JsonConvert.SerializeObject(model); 
-            StringContent content = new StringContent(data,Encoding.UTF8,"application/json");
+            String data = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_user&id="+model.Id, content).Result;
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_user&id=" + model.Id, content).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data2 = response.Content.ReadAsStringAsync().Result;
@@ -143,7 +140,7 @@ namespace Demoweb.Controllers
                 string[] columnNames = new string[] { "id", "name", "email" };
                 string csv = string.Empty;
 
-                foreach(string column in columnNames)
+                foreach (string column in columnNames)
                 {
                     csv += column + ',';
                 }
@@ -158,6 +155,41 @@ namespace Demoweb.Controllers
                 return File(bytes, "text/csv", "user" + model.Id + ".csv");
             }
             return View(model);
+        }
+        public IActionResult Import() { return View(); }
+        [HttpPost]
+        public IActionResult Import(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        {
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(filename))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            List<UserView> model = new List<UserView>();
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + file.FileName;
+
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var user = csv.GetRecord<UserView>();
+                    model.Add(user);
+                }
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user_csv", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data2 = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(data2);
+                    return RedirectToAction("Index");
+                }
+            }
+            return Index();
         }
     }
 }

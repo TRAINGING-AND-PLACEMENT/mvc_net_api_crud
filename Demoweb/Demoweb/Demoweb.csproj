@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="jquery.datatables" Version="1.10.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
@@ -25,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="api\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
 </Project>
