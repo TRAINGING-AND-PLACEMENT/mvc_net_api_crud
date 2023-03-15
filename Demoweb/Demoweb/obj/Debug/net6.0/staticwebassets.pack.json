@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user14.csv",
+      "PackagePath": "staticwebassets\\files\\user14.csv"
+    },
+    {
+      "Id": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user18.csv",
+      "PackagePath": "staticwebassets\\files\\user18.csv"
+    },
+    {
+      "Id": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user19.csv",
+      "PackagePath": "staticwebassets\\files\\user19.csv"
+    },
+    {
       "Id": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user5.csv",
       "PackagePath": "staticwebassets\\files\\user5.csv"
     },
