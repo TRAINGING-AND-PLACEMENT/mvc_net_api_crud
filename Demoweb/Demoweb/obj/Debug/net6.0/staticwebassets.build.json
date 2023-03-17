@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4MulbxZBR35CGQwC7N0uIf2fRdDuJF+03XPWARTTWrA=",
+  "Hash": "scEqmW3JcO5TTy7V232l6SouUoJwYJ0ZC/QRsh0zS2A=",
   "Source": "Demoweb",
   "BasePath": "_content/Demoweb",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\files\\user19.csv"
+    },
+    {
+      "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user23.csv",
+      "SourceId": "Demoweb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\",
+      "BasePath": "_content/Demoweb",
+      "RelativePath": "files/user23.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\files\\user23.csv"
     },
     {
       "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user5.csv",

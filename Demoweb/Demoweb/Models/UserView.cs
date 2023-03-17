@@ -1,16 +1,20 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demoweb.Models
 {
     public class UserView
     {
         [Key]
-        [Index(0)]
+        [CsvHelper.Configuration.Attributes.Index(0)]
         public int Id { get; set; }
-        [Index(1)]
+
+        [CsvHelper.Configuration.Attributes.Index(1)]
+        [Column("Names")]
         public string Name { get; set; }
-        [Index(2)]
+
+        [CsvHelper.Configuration.Attributes.Index(2)]
         public string Email { get; set; }
     }
 }

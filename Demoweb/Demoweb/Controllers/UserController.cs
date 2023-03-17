@@ -26,8 +26,8 @@ namespace Demoweb.Controllers
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                /*Debug.Write(data);*/
                 model = JsonConvert.DeserializeObject<List<UserView>>(data);
+                Debug.Write(model);
             }
             return View(model);
         }
