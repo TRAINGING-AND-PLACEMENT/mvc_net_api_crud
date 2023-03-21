@@ -1,7 +1,10 @@
 ﻿using CsvHelper;
 using Demoweb.api;
+using Demoweb.Controllers.json;
 using Demoweb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.MSIdentity.Shared;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
@@ -12,6 +15,7 @@ namespace Demoweb.Controllers
     public class UserController : Controller
     {
         HttpClient client;
+        JsonView jv = new JsonView();
         public UserController()
         {
             Webapi wb = new Webapi();
@@ -22,14 +26,20 @@ namespace Demoweb.Controllers
         public IActionResult Index()
         {
             List<UserView> model = new List<UserView>();
+            
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_user").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                model = JsonConvert.DeserializeObject<List<UserView>>(data);
-                Debug.Write(model);
+                /*Debug.Write(data);*/
+                /*model = JsonConvert.DeserializeObject<List<UserView>>(data);*/
+                /*var obj = JsonConvert.DeserializeObject<RootObject>(data);*/
+                model = jv.listroot(model, data);
+                /*RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
+                model = root.result;*/
             }
             return View(model);
+
         }
         public IActionResult Create()
         {
@@ -56,8 +66,9 @@ namespace Demoweb.Controllers
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                /*Debug.Write(data);*/
-                model = JsonConvert.DeserializeObject<UserView>(data);
+                //Debug.WriteLine(data);
+                //Debug.WriteLine(root.uniroot);
+                model = jv.uniroot(model, data);
             }
             return View(model);
         }
@@ -134,10 +145,10 @@ namespace Demoweb.Controllers
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                model = JsonConvert.DeserializeObject<UserView>(data);
+                model = jv.uniroot(model, data);
                 /*Debug.Write(model.Name);*/
 
-                string[] columnNames = new string[] { "id", "name", "email" };
+                string[] columnNames = new string[] { "id", "names", "email" };
                 string csv = string.Empty;
 
                 foreach (string column in columnNames)
@@ -146,7 +157,7 @@ namespace Demoweb.Controllers
                 }
                 csv += "\r\n";
                 csv += model.Id.ToString().Replace(",", ";") + ',';
-                csv += model.Name.Replace(",", ";") + ',';
+                csv += model.Names.Replace(",", ";") + ',';
                 csv += model.Email.Replace(",", ";") + ',';
 
                 csv += "\r\n";

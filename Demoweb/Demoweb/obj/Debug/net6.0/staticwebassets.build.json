@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "scEqmW3JcO5TTy7V232l6SouUoJwYJ0ZC/QRsh0zS2A=",
+  "Hash": "3ml3LQdK5o05Rb7fYtrzaV6qwyee10VXddpmd9c7tIw=",
   "Source": "Demoweb",
   "BasePath": "_content/Demoweb",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user1.csv",
+      "SourceId": "Demoweb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\",
+      "BasePath": "_content/Demoweb",
+      "RelativePath": "files/user1.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\files\\user1.csv"
+    },
+    {
       "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user14.csv",
       "SourceId": "Demoweb",
       "SourceType": "Discovered",
@@ -151,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\files\\user23.csv"
+    },
+    {
+      "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user26.csv",
+      "SourceId": "Demoweb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\",
+      "BasePath": "_content/Demoweb",
+      "RelativePath": "files/user26.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\files\\user26.csv"
     },
     {
       "Identity": "C:\\Users\\surya\\source\\repos\\Demoweb\\Demoweb\\wwwroot\\files\\user5.csv",

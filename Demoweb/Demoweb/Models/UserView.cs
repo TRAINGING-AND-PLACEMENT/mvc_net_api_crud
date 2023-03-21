@@ -11,8 +11,7 @@ namespace Demoweb.Models
         public int Id { get; set; }
 
         [CsvHelper.Configuration.Attributes.Index(1)]
-        [Column("Names")]
-        public string Name { get; set; }
+        public string Names { get; set; }
 
         [CsvHelper.Configuration.Attributes.Index(2)]
         public string Email { get; set; }
