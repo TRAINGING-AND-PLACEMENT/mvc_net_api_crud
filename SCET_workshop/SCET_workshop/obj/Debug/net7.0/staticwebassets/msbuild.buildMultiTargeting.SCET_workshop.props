@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\SCET_workshop.props" />
-</Project>
