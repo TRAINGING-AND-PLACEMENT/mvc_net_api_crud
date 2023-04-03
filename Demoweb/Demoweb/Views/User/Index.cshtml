@@ -1,24 +1,25 @@
-﻿@model IEnumerable<Demoweb.Models.UserView>
+﻿@page
+@model IEnumerable<Demoweb.Models.UserView>
 
-@{
+@*@{
     ViewData["Title"] = "Index";
-}
-@{
-    
-}
+}*@
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<b>role:</b> @HttpContext.Session.GetInt32("role");<b>
+<b>userid:</b> @HttpContext.Session.GetInt32("userid");<b>
+<b>sessionid:</b> @HttpContext.Session.GetInt32("sessionid");<b>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Names)
+                @Html.DisplayNameFor(model => model.names)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.email)
             </th>
             <th></th>
         </tr>
@@ -30,15 +31,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Names)
+                @Html.DisplayFor(modelItem => item.names)
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                <a asp-action="Export" asp-route-id="@item.Id">Export CSV</a>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Export" asp-route-id="@item.id">Export CSV</a>
             </td>
         </tr>
 }

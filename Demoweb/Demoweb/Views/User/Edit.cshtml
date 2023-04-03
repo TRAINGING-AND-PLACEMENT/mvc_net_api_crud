@@ -13,16 +13,16 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="id" />
             <div class="form-group">
-                <label asp-for="Names" class="control-label"></label>
-                <input asp-for="Names" class="form-control" />
-                <span asp-validation-for="Names" class="text-danger"></span>
+                <label asp-for="names" class="control-label"></label>
+                <input asp-for="names" class="form-control" />
+                <span asp-validation-for="names" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

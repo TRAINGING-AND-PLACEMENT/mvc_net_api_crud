@@ -23,6 +23,42 @@ namespace Demoweb.Controllers
             client = new HttpClient();
             client.BaseAddress = baseAddress;
         }
+        public IActionResult Login() { return View(); }
+
+        [HttpPost]
+        public IActionResult Login(UserView model)
+        {
+            if (ModelState.IsValid)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "getlogin", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    Login logindetails = jv.LoginDetails(result);
+                    var success = logindetails.success;
+                    if (success)
+                    {
+                        int role = Convert.ToInt32(logindetails.user.role);
+                        int userid = Convert.ToInt32(logindetails.user.id);
+                        int sessionid = Convert.ToInt32(logindetails.student.session_id);
+                        HttpContext.Session.SetInt32("role", role);
+                        HttpContext.Session.SetInt32("userid", userid);
+                        HttpContext.Session.SetInt32("sessionid", sessionid);
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["error"] = "Wrong id or password";
+                        return RedirectToAction("Login");
+                    }
+                }
+            }
+            return View(model);
+        }
+
         public IActionResult Index()
         {
             List<UserView> model = new List<UserView>();
@@ -33,10 +69,7 @@ namespace Demoweb.Controllers
                 String data = response.Content.ReadAsStringAsync().Result;
                 /*Debug.Write(data);*/
                 /*model = JsonConvert.DeserializeObject<List<UserView>>(data);*/
-                /*var obj = JsonConvert.DeserializeObject<RootObject>(data);*/
                 model = jv.listroot(model, data);
-                /*RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-                model = root.result;*/
             }
             return View(model);
 
@@ -80,7 +113,7 @@ namespace Demoweb.Controllers
             String data = JsonConvert.SerializeObject(model);
             StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_user&id=" + model.Id, content).Result;
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_user&id=" + model.id, content).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data2 = response.Content.ReadAsStringAsync().Result;
@@ -156,14 +189,15 @@ namespace Demoweb.Controllers
                     csv += column + ',';
                 }
                 csv += "\r\n";
-                csv += model.Id.ToString().Replace(",", ";") + ',';
-                csv += model.Names.Replace(",", ";") + ',';
-                csv += model.Email.Replace(",", ";") + ',';
+                csv += model.id.ToString().Replace(",", ";") + ',';
+                csv += model.names.Replace(",", ";") + ',';
+                csv += model.email.Replace(",", ";") + ',';
+                csv += model.password.Replace(",",";") + ',';
 
                 csv += "\r\n";
 
                 byte[] bytes = Encoding.ASCII.GetBytes(csv);
-                return File(bytes, "text/csv", "user" + model.Id + ".csv");
+                return File(bytes, "text/csv", "user" + model.id + ".csv");
             }
             return View(model);
         }
@@ -188,6 +222,8 @@ namespace Demoweb.Controllers
                 while (csv.Read())
                 {
                     var user = csv.GetRecord<UserView>();
+                    user.status = "0";
+                    user.role = "1";
                     model.Add(user);
                 }
                 String data = JsonConvert.SerializeObject(model);
